@@ -166,10 +166,13 @@ function svg(w, h){ var s = document.createElementNS(NS, "svg"); s.setAttribute(
 function sv(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for(var k in attrs) e.setAttribute(k, attrs[k]); if(parent) parent.appendChild(e); return e; }
 function stext(p, x, y, str, o){
   o = o || {};
-  var t = sv("text", {x:x, y:y, "font-size":o.size||24, fill:o.fill||cssv("--text"), "text-anchor":o.anchor||"middle",
+  // In RTL text, "start" is the right edge, so flip the anchor to keep the same visual alignment.
+  var anchor = o.anchor || "middle";
+  if(o.rtl && anchor !== "middle") anchor = anchor === "end" ? "start" : "end";
+  var t = sv("text", {x:x, y:y, "font-size":o.size||24, fill:o.fill||cssv("--text"), "text-anchor":anchor,
     "font-family":o.mono ? "IBM Plex Mono" : (o.en ? "IBM Plex Sans" : "IBM Plex Sans Arabic"),
     "font-weight":o.weight||500, "dominant-baseline":o.base||"alphabetic"}, p);
-  if(o.rtl){ t.setAttribute("direction","rtl"); t.setAttribute("unicode-bidi","plaintext"); }
+  if(o.rtl) t.setAttribute("direction","rtl");
   t.textContent = str;
   return t;
 }
@@ -251,15 +254,17 @@ function vizDist(w, h, d, k){
 
 // Horizontal bars with direct value labels.
 function vizBars(w, h, d, k){
+  // Label on its own line, bar under it growing from the reading side, value at the bar's end.
   var s = svg(w, h), items = d.items || [];
-  var labW = w * .32, valW = 120*k, x0 = valW, x1 = w - labW - 20*k;
+  var valW = 130*k, x0 = valW, x1 = w - 8*k;
   var max = d.max || Math.max.apply(null, items.map(function(i){ return i.value; }));
-  var rowH = Math.min(h / Math.max(items.length, 1), 150*k), top = (h - rowH*items.length)/2, bh = rowH*.5;
+  var rowH = Math.min(h / Math.max(items.length, 1), 170*k), top = (h - rowH*items.length)/2;
+  var labS = 30*k, bh = Math.min(rowH*.36, 46*k);
   items.forEach(function(it, i){
-    var y = top + rowH*i + (rowH - bh)/2, bw = (it.value/max)*(x1 - x0);
-    sv("rect", {x:x1 - bw, y:y, width:Math.max(bw, 4*k), height:bh, rx:6*k, fill:it.hl ? cssv("--accent") : cssv("--ci")}, s);
-    stext(s, x1 - bw - 14*k, y + bh/2 + 10*k, (it.display || fmt(it.value)) + (d.unit || ""), {anchor:"end", mono:true, size:28*k, weight:600, fill:cssv("--text")});
-    stext(s, w - 8*k, y + bh/2 + 10*k, it.label, {anchor:"end", size:28*k, weight:600, en:isLatin(it.label), rtl:!isLatin(it.label)});
+    var y0 = top + rowH*i, ly = y0 + labS + 4*k, by = ly + 16*k, bw = (it.value/max)*(x1 - x0);
+    stext(s, x1, ly, it.label, {anchor:"end", size:labS, weight:600, fill:it.hl ? cssv("--accent") : cssv("--text"), en:isLatin(it.label), rtl:!isLatin(it.label)});
+    sv("rect", {x:x1 - bw, y:by, width:Math.max(bw, 4*k), height:bh, rx:6*k, fill:it.hl ? cssv("--accent") : cssv("--ci")}, s);
+    stext(s, x1 - bw - 14*k, by + bh/2 + 11*k, (it.display || fmt(it.value)) + (d.unit || ""), {anchor:"end", mono:true, size:32*k, weight:600, fill:it.hl ? cssv("--accent") : cssv("--text")});
   });
   return s;
 }
