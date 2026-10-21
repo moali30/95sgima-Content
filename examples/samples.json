@@ -1,0 +1,70 @@
+[
+  {
+    "name": "post-light-dumbbell",
+    "format": "post", "variant": "light",
+    "label": "تحليل الانحدار",
+    "title": "*R²* زاد لما ضفت متغير، وده مش تحسّن",
+    "subtitle": "أي متغير بيرفع R² حتى لو ملوش علاقة. المرجع هنا Adjusted R².",
+    "visual": {"type": "dumbbell", "caption": "مثال توضيحي · n = 120 · قبل وبعد إضافة متغير عشوائي",
+      "items": [{"label": "R²", "from": 0.41, "to": 0.44}, {"label": "Adjusted R²", "from": 0.40, "to": 0.38, "hl": true}]}
+  },
+  {
+    "name": "post-dark-number",
+    "format": "post", "variant": "dark",
+    "label": "التداخل الخطي",
+    "title": "إمتى التداخل الخطي يبقى *مشكلة فعلًا*؟",
+    "subtitle": "القاعدة الشائعة VIF > 10 مش حكم نهائي.",
+    "visual": {"type": "number", "value": "VIF = 6.4", "caption": "رقم من محاضرة حقيقية، والسؤال: نحذف المتغير ولا لأ؟"}
+  },
+  {
+    "name": "post-myth",
+    "format": "post", "variant": "myth",
+    "label": "التفسير",
+    "title": "بتكتب «يؤثر» وانت قِست *ارتباط*",
+    "myth": {"wrong": "الدراسة أثبتت إن الرضا الوظيفي يؤثر على الأداء", "right": "الدراسة لقت ارتباط موجب بين الرضا والأداء (r = 0.42)"}
+  },
+  {
+    "name": "post-ci",
+    "format": "post", "variant": "light",
+    "label": "حجم الأثر",
+    "title": "الدلالة وحدها *لا تكفي*",
+    "subtitle": "p بتقول الأثر موجود، وحجم الأثر بيقول يستاهل ولا لأ.",
+    "visual": {"type": "ci", "ref": 0, "refLabel": "لا أثر", "caption": "فترات ثقة 95% لفرق المتوسطين (Cohen's d)",
+      "items": [{"label": "n = 40", "est": 0.45, "lo": -0.18, "hi": 1.08}, {"label": "n = 400", "est": 0.12, "lo": 0.02, "hi": 0.22, "hl": true}]}
+  },
+  {
+    "name": "post-photo",
+    "format": "post", "variant": "photo",
+    "label": "سؤال من رسالة",
+    "title": "نتيجتك غير معنوية، *وده مش فشل*",
+    "subtitle": "النتيجة السالبة نتيجة، بشرط التصميم يكون سليم."
+  },
+  {
+    "name": "reel-photo",
+    "format": "reel", "variant": "photo",
+    "series": "ما لا يسع الباحث جهله", "episode": 2,
+    "title": "عينتك الصغيرة *عمياء*"
+  },
+  {
+    "name": "reel-dark-dist",
+    "format": "reel", "variant": "dark",
+    "series": "ما لا يسع الباحث جهله", "episode": 2,
+    "title": "عينتك الصغيرة *عمياء*",
+    "subtitle": "Power Analysis قبل ما تجمع البيانات",
+    "visual": {"type": "dist", "curves": [{"mu": 0, "sd": 1, "label": "H₀"}, {"mu": 1.4, "sd": 1, "label": "H₁", "hl": true}],
+      "shade": {"curve": 1, "from": 1.96, "label": "Power"}, "cut": {"x": 1.96, "label": "1.96"}}
+  },
+  {
+    "name": "yt-photo",
+    "format": "yt", "variant": "photo",
+    "series": "ما لا يسع الباحث جهله", "episode": 2,
+    "title": "عينتك الصغيرة *عمياء*"
+  },
+  {
+    "name": "yt-light-scatter",
+    "format": "yt", "variant": "light",
+    "label": "الارتباط",
+    "title": "ارتباط قوي *مش* معناه سبب",
+    "visual": {"type": "scatter", "r": 0.7, "n": 70, "note": "r = 0.70"}
+  }
+]

@@ -1,0 +1,89 @@
+/* Colors - core brand values, then semantic roles. Components use roles, never hex. */
+:root{
+color-scheme:light;
+/* Core brand (never bind a component directly to these) */
+--brand-ink:#0E3A3C;
+--brand-accent:#2A9086;
+--brand-paper:#F1F5F3;
+--brand-bright:#6FE3D2;
+
+/* Surfaces */
+--surface:#FFFFFF;
+--surface-2:#F1F5F3;
+--surface-3:#E4EDEA;
+--surface-raised:#FFFFFF;
+--surface-inverse:#0E3A3C;
+
+/* Inverse bands (CTA strip, footer) - flipped per theme so they stay distinct */
+--band-inverse:#0E3A3C;
+--band-inverse-text:#E8F2EF;
+--band-inverse-muted:#A9C6C2;
+--band-deep:#0B2E30;
+--band-deep-text:#7FA5A1;
+
+/* Constant in both themes: backdrop for cut-out portraits supplied on white */
+--portrait-panel:#DCEEEA;
+--portrait-panel-edge:#B9D6D0;
+
+/* Borders */
+--border:#D2E0DC;
+--border-strong:#B4CBC6;
+
+/* Text */
+--text:#0E3A3C;
+--text-secondary:#3F5C5C;
+--text-subtle:#536D6B;
+--text-inverse:#E8F2EF;
+--text-on-accent:#FFFFFF;
+
+/* Accent + actions. #2A9086 fails AA behind small white text; #237A72 is the action colour. */
+--accent:#2A9086;
+--accent-soft:#DCEEEA;
+--action-primary:#237A72;
+--action-primary-hover:#1F6D66;
+--action-primary-active:#1A5D57;
+--action-primary-text:#FFFFFF;
+--action-secondary:#FFFFFF;
+--action-secondary-text:#0E3A3C;
+--action-secondary-hover:#F1F5F3;
+--action-destructive:#B32D26;
+--action-destructive-hover:#9A251F;
+--action-destructive-text:#FFFFFF;
+--focus-ring:#2A9086;
+--overlay:rgb(11 46 48 / 66%);
+--link:#237A72;
+--link-hover:#1A5D57;
+
+/* Status - reserved semantics, never reused as chart series */
+--status-good:#157A4A;
+--status-good-soft:#E4F1EA;
+--status-warning:#A97400;
+--status-warning-soft:#F7EEDA;
+--status-serious:#C25A18;
+--status-serious-soft:#FAEBE0;
+--status-critical:#B32D26;
+--status-critical-soft:#F8E6E5;
+--status-info:#2F72C8;
+--status-info-soft:#E6EEF9;
+
+/* Chart series - the order is part of accessibility */
+--series-1:#0E9A8C;
+--series-2:#E1671F;
+--series-3:#2F72C8;
+--series-4:#B5820A;
+--series-5:#D0568F;
+--series-6:#3F8F35;
+--series-7:#6B4BC4;
+--series-8:#D2453F;
+--chart-surface:#F1F5F3;
+--chart-grid:#D2E0DC;
+--chart-ci:#B4CBC6;
+/* Teal sequential ramp for continuous values / heatmaps */
+--ramp-1:#EAF4F2;
+--ramp-2:#C7E4DE;
+--ramp-3:#96CFC5;
+--ramp-4:#5FB3A7;
+--ramp-5:#2A9086;
+--ramp-6:#1B6A65;
+--ramp-7:#0E3A3C;
+}

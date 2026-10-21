@@ -1,0 +1,12 @@
+{
+  "name": "95sigma-content",
+  "private": true,
+  "description": "95 Sigma content workflow: post images and thumbnails rendered from JSON specs",
+  "scripts": {
+    "render": "node render/render.js",
+    "samples": "node render/render.js examples/samples.json"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>95 Sigma card</title>
+<style>
+@font-face{font-family:"IBM Plex Sans Arabic";src:url("../brand/fonts/IBMPlexSansArabic-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"IBM Plex Sans Arabic";src:url("../brand/fonts/IBMPlexSansArabic-Medium.woff2") format("woff2");font-weight:500}
+@font-face{font-family:"IBM Plex Sans Arabic";src:url("../brand/fonts/IBMPlexSansArabic-SemiBold.woff2") format("woff2");font-weight:600}
+@font-face{font-family:"IBM Plex Sans Arabic";src:url("../brand/fonts/IBMPlexSansArabic-Bold.woff2") format("woff2");font-weight:700}
+@font-face{font-family:"IBM Plex Sans";src:url("../brand/fonts/IBMPlexSans-Medium.woff2") format("woff2");font-weight:500}
+@font-face{font-family:"IBM Plex Sans";src:url("../brand/fonts/IBMPlexSans-SemiBold.woff2") format("woff2");font-weight:600}
+@font-face{font-family:"IBM Plex Sans";src:url("../brand/fonts/IBMPlexSans-Bold.woff2") format("woff2");font-weight:700}
+@font-face{font-family:"IBM Plex Mono";src:url("../brand/fonts/IBMPlexMono-Regular.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"IBM Plex Mono";src:url("../brand/fonts/IBMPlexMono-SemiBold.woff2") format("woff2");font-weight:600}
+
+/* Brand tokens (from the 95 Sigma design system). Light is the default. */
+.t-light{
+  --bg:#F1F5F3; --surface:#FFFFFF; --text:#0E3A3C; --text-2:#3F5C5C; --subtle:#536D6B;
+  --accent:#2A9086; --accent-strong:#237A72; --accent-soft:#DCEEEA;
+  --border:#D2E0DC; --border-strong:#B4CBC6; --grid:#D2E0DC; --ci:#B4CBC6;
+  --s1:#0E9A8C; --s2:#E1671F; --s3:#2F72C8;
+}
+/* Dark: Deep Teal ground. Bright Teal #6FE3D2 is allowed only here. */
+.t-dark{
+  --bg:#0E3A3C; --surface:#0B2E30; --text:#E8F2EF; --text-2:#A9C6C2; --subtle:#7FA5A1;
+  --accent:#6FE3D2; --accent-strong:#6FE3D2; --accent-soft:#14484A;
+  --border:#1F5C5D; --border-strong:#2C7274; --grid:#1F5C5D; --ci:#2C7274;
+  --s1:#2AA697; --s2:#DB6E2E; --s3:#4483D4;
+}
+/* Photo: cut-out portrait multiplied onto the constant portrait panel. */
+.t-photo{ --bg:#DCEEEA; --surface:#FFFFFF; --border:#B9D6D0; --accent-soft:#FFFFFF; }
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#888}
+#c{position:relative;overflow:hidden;background:var(--bg);color:var(--text);
+  font-family:"IBM Plex Sans Arabic",sans-serif;direction:rtl;display:flex;flex-direction:column}
+
+bdi.en{font-family:"IBM Plex Sans","IBM Plex Sans Arabic",sans-serif;unicode-bidi:isolate}
+bdi.num{white-space:nowrap;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;unicode-bidi:isolate;letter-spacing:-.01em}
+em.hl{font-style:normal;color:var(--accent)}
+
+.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent-strong);font-weight:600;white-space:nowrap}
+.pill.ghost{background:transparent;border:1.5px solid var(--border-strong);color:var(--text-2)}
+.title{font-weight:700;line-height:1.3;letter-spacing:0;text-wrap:balance;overflow:hidden}
+.sub{color:var(--text-2);font-weight:400;line-height:1.55;text-wrap:pretty}
+.viz{flex:1 1 auto;min-height:0;position:relative;display:flex;flex-direction:column;justify-content:center}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.vcap{color:var(--subtle);font-weight:500}
+.foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
+.foot img{display:block;height:100%;width:auto;max-width:none;flex-shrink:0}
+.url{font-family:"IBM Plex Mono",monospace;color:var(--subtle);direction:ltr}
+
+.bignum{font-family:"IBM Plex Mono",monospace;font-weight:600;direction:ltr;text-align:center;line-height:1.1;color:var(--accent)}
+.bigcap{text-align:center;color:var(--text-2);font-weight:500;line-height:1.5}
+
+.myth{display:flex;flex-direction:column;gap:28px;flex:1 1 auto;justify-content:center}
+.myth .card{border-radius:14px;background:var(--surface);border:1px solid var(--border)}
+.myth .card.right{border:1.5px solid var(--accent)}
+.myth .tag{font-weight:600;color:var(--subtle)}
+.myth .right .tag{color:var(--accent-strong)}
+.myth .txt{font-weight:600;line-height:1.45}
+.myth .wrong .txt{color:var(--text-2);text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--border-strong)}
+
+.portrait{position:absolute;bottom:0;mix-blend-mode:multiply;max-width:none}
+</style>
+</head>
+<body>
+<div id="c"></div>
+<script>
+"use strict";
+/* ---------------- spec ---------------- */
+var DEMO = {
+  format:"post", variant:"light",
+  label:"تحليل الانحدار",
+  title:"*R²* زاد لما ضفت متغير، وده مش تحسّن",
+  subtitle:"أي متغير بيرفع R² حتى لو ملوش علاقة. المرجع هنا Adjusted R².",
+  visual:{type:"dumbbell", caption:"نموذج افتراضي للتوضيح · n = 120",
+    items:[{label:"R²",from:0.41,to:0.44},{label:"Adjusted R²",from:0.40,to:0.38,hl:true}]}
+};
+var S = window.SPEC || DEMO;
+
+var FORMATS = {
+  post:{w:1080,h:1350}, reel:{w:1080,h:1920}, yt:{w:1280,h:720}
+};
+var F = FORMATS[S.format] || FORMATS.post;
+var V = S.variant || "light";
+var theme = (V === "dark") ? "t-dark" : (V === "photo") ? "t-light t-photo" : "t-light";
+var C = document.getElementById("c");
+C.className = theme;
+C.style.width = F.w + "px";
+C.style.height = F.h + "px";
+document.body.style.width = F.w + "px";
+
+/* ---------------- text helpers ---------------- */
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+// Latin, digits and stats symbols become LTR islands: mono for numbers/equations, Plex Sans for words.
+var RUN = /[(A-Za-z0-9²³σμαβχρ][A-Za-z0-9²³σμαβχρ₀-₉.,:=<>≤≥%+\-−×÷\/()'’_ ]*[A-Za-z0-9²³σμαβχρ₀-₉%)]|[A-Za-z0-9²³σ]/g;
+function islands(s){
+  var out = "", last = 0;
+  s.replace(RUN, function(m, at){
+    var mono = /^[\d\s.,=<>≤≥%+\-−×÷\/()²³]+$/.test(m) || /[=<>≤≥]/.test(m);
+    out += esc(s.slice(last, at)) + '<bdi dir="ltr" class="' + (mono ? "num" : "en") + '">' + esc(m) + '</bdi>';
+    last = at + m.length;
+    return m;
+  });
+  return out + esc(s.slice(last));
+}
+// *text* marks the accent phrase.
+function rich(s){
+  return String(s == null ? "" : s).split("*").map(function(seg, i){
+    var h = islands(seg);
+    return i % 2 ? '<em class="hl">' + h + '</em>' : h;
+  }).join("");
+}
+function el(tag, cls, html, css){
+  var e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html != null) e.innerHTML = html;
+  if(css) Object.assign(e.style, css);
+  return e;
+}
+// Shrink font size until the text fits in maxH (defaults to the element's own box height).
+function fit(e, max, min, maxH){
+  if(maxH == null) maxH = e.clientHeight;
+  e.style.maxHeight = "none"; e.style.overflow = "visible";
+  var s = max;
+  e.style.fontSize = s + "px";
+  while(s > min && (e.scrollHeight > maxH + 6 || e.scrollWidth > e.clientWidth + 6)){
+    s -= 2; e.style.fontSize = s + "px";
+  }
+  return s;
+}
+function cssv(name){ return getComputedStyle(C).getPropertyValue(name).trim(); }
+function logoSrc(){ return "../brand/logos/" + (V === "dark" ? "95sigma-horizontal-dark.svg" : "95sigma-horizontal-colour.svg"); }
+function seriesChip(px){
+  if(!S.series && !S.episode) return null;
+  var t = (S.series ? esc(S.series) : "") + (S.episode ? (S.series ? " · " : "") + 'حلقة <bdi dir="ltr" class="num">' + String(S.episode).padStart(2,"0") + '</bdi>' : "");
+  return el("span", "pill ghost", t, {fontSize:px+"px", padding:(px*.45)+"px "+(px*.9)+"px"});
+}
+function labelPill(px){
+  if(!S.label) return null;
+  return el("span", "pill", rich(S.label), {fontSize:px+"px", padding:(px*.45)+"px "+(px*.9)+"px"});
+}
+function topRow(px, gap){
+  var r = el("div", "top", null, {gap:(gap||16)+"px"});
+  var a = labelPill(px), b = seriesChip(px);
+  if(a) r.appendChild(a);
+  if(b) r.appendChild(b);
+  return (a || b) ? r : null;
+}
+function footer(h, fs, pad){
+  var f = el("div", "foot", null, {height:(h+pad)+"px", paddingTop:pad+"px", flex:"none"});
+  var img = el("img"); img.src = logoSrc(); img.alt = "95 Sigma";
+  img.style.height = h + "px";
+  f.appendChild(el("span", "url", esc(S.url || "95sigma.tech"), {fontSize:fs+"px"}));
+  f.appendChild(img);
+  return f;
+}
+
+/* ---------------- visuals (SVG) ---------------- */
+var NS = "http://www.w3.org/2000/svg";
+function svg(w, h){ var s = document.createElementNS(NS, "svg"); s.setAttribute("width", w); s.setAttribute("height", h); s.setAttribute("viewBox", "0 0 "+w+" "+h); s.style.display = "block"; s.style.direction = "ltr"; return s; }
+function sv(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for(var k in attrs) e.setAttribute(k, attrs[k]); if(parent) parent.appendChild(e); return e; }
+function stext(p, x, y, str, o){
+  o = o || {};
+  var t = sv("text", {x:x, y:y, "font-size":o.size||24, fill:o.fill||cssv("--text"), "text-anchor":o.anchor||"middle",
+    "font-family":o.mono ? "IBM Plex Mono" : (o.en ? "IBM Plex Sans" : "IBM Plex Sans Arabic"),
+    "font-weight":o.weight||500, "dominant-baseline":o.base||"alphabetic"}, p);
+  if(o.rtl){ t.setAttribute("direction","rtl"); t.setAttribute("unicode-bidi","plaintext"); }
+  t.textContent = str;
+  return t;
+}
+function niceTicks(lo, hi, n){
+  var span = hi - lo, step = Math.pow(10, Math.floor(Math.log10(span / n)));
+  var err = (n * step) / span;
+  if(err <= .15) step *= 10; else if(err <= .35) step *= 5; else if(err <= .75) step *= 2;
+  var out = [], v = Math.ceil(lo / step) * step;
+  for(; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10));
+  return out;
+}
+function fmt(v){ var a = Math.abs(v); return a < 10 ? v.toFixed(a !== 0 && a < 1 ? 2 : (v % 1 ? 1 : 0)) : v.toFixed(0); }
+function isLatin(s){ return /^[\x00-\x7F²³α-ω₀-₉]+$/.test(s); }
+
+// Rows of point estimates with intervals; optional reference line.
+function vizCI(w, h, d, k){
+  var s = svg(w, h), items = d.items || [];
+  var labW = w * .3, x0 = 24*k, x1 = w - labW - 24*k, axisH = 56*k;
+  var vals = []; items.forEach(function(it){ vals.push(it.lo, it.hi, it.est); });
+  if(d.ref != null) vals.push(d.ref);
+  var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), pad = (hi - lo) * .12 || 1;
+  lo -= pad; hi += pad;
+  var X = function(v){ return x0 + (v - lo) / (hi - lo) * (x1 - x0); };
+  var rowH = Math.min((h - axisH) / Math.max(items.length, 1), 180*k);
+  var top = (h - axisH - rowH * items.length) / 2;
+  var ticks = niceTicks(lo, hi, 5), dec = Math.max(0, -Math.floor(Math.log10(ticks[1] - ticks[0] || 1)));
+  ticks.forEach(function(t){
+    sv("line", {x1:X(t), x2:X(t), y1:top, y2:top + rowH*items.length, stroke:cssv("--grid"), "stroke-width":1.5*k}, s);
+    stext(s, X(t), top + rowH*items.length + 44*k, t.toFixed(dec), {mono:true, size:28*k, fill:cssv("--subtle"), weight:400});
+  });
+  if(d.ref != null){
+    sv("line", {x1:X(d.ref), x2:X(d.ref), y1:top - 10*k, y2:top + rowH*items.length, stroke:cssv("--text-2"), "stroke-width":2.5*k, "stroke-dasharray":(8*k)+" "+(7*k)}, s);
+    if(d.refLabel) stext(s, X(d.ref), top - 24*k, d.refLabel, {size:30*k, fill:cssv("--text-2"), rtl:!isLatin(d.refLabel)});
+  }
+  items.forEach(function(it, i){
+    var y = top + rowH*i + rowH/2, col = it.hl ? cssv("--accent") : cssv("--text-2");
+    sv("line", {x1:X(it.lo), x2:X(it.hi), y1:y, y2:y, stroke:it.hl ? cssv("--accent") : cssv("--ci"), "stroke-width":10*k, "stroke-linecap":"round"}, s);
+    sv("circle", {cx:X(it.est), cy:y, r:19*k, fill:col}, s);
+    stext(s, w - 8*k, y + 13*k, it.label, {anchor:"end", size:38*k, weight:600, fill:cssv("--text"), en:isLatin(it.label), rtl:!isLatin(it.label)});
+  });
+  return s;
+}
+
+// Normal curves with an optional shaded region and a cut line.
+function vizDist(w, h, d, k){
+  var s = svg(w, h), curves = d.curves || [{mu:0, sd:1}];
+  var lo = Math.min.apply(null, curves.map(function(c){ return c.mu - 3.6*c.sd; }));
+  var hi = Math.max.apply(null, curves.map(function(c){ return c.mu + 3.6*c.sd; }));
+  var pdf = function(x, c){ return Math.exp(-.5*Math.pow((x-c.mu)/c.sd, 2)) / (c.sd*Math.sqrt(2*Math.PI)); };
+  var ymax = Math.max.apply(null, curves.map(function(c){ return pdf(c.mu, c); }));
+  var base = h - 70*k, topY = 60*k, x0 = 20*k, x1 = w - 20*k;
+  var X = function(v){ return x0 + (v - lo)/(hi - lo)*(x1 - x0); };
+  var Y = function(p){ return base - p/ymax*(base - topY); };
+  var cols = [cssv("--subtle"), cssv("--accent")];
+  if(d.shade){
+    var c = curves[d.shade.curve || 0], a = d.shade.from != null ? d.shade.from : lo, b = d.shade.to != null ? d.shade.to : hi;
+    var pts = ["M", X(a), base];
+    for(var x = a; x <= b; x += (hi-lo)/300) pts.push("L", X(x), Y(pdf(x, c)));
+    pts.push("L", X(b), base, "Z");
+    sv("path", {d:pts.join(" "), fill:cssv("--accent"), opacity:V === "dark" ? .28 : .22}, s);
+    if(d.shade.label){
+      var mx = (Math.max(a, c.mu - 2*c.sd) + Math.min(b, c.mu + 2*c.sd)) / 2;
+      stext(s, X(mx), Y(pdf(mx, c)*.45), d.shade.label, {size:30*k, weight:700, fill:cssv("--accent"), en:isLatin(d.shade.label), rtl:!isLatin(d.shade.label)});
+    }
+  }
+  curves.forEach(function(c, i){
+    var p = [];
+    for(var x = lo; x <= hi; x += (hi-lo)/300) p.push((p.length ? "L" : "M") + X(x) + " " + Y(pdf(x, c)));
+    sv("path", {d:p.join(" "), fill:"none", stroke:c.hl ? cssv("--accent") : cols[i % 2], "stroke-width":5*k}, s);
+    if(c.label) stext(s, X(c.mu), Y(pdf(c.mu, c)) - 18*k, c.label, {size:28*k, weight:600, fill:cssv("--text"), en:isLatin(c.label), rtl:!isLatin(c.label)});
+  });
+  sv("line", {x1:x0, x2:x1, y1:base, y2:base, stroke:cssv("--border-strong"), "stroke-width":2*k}, s);
+  if(d.cut){
+    sv("line", {x1:X(d.cut.x), x2:X(d.cut.x), y1:topY - 10*k, y2:base, stroke:cssv("--text"), "stroke-width":3*k, "stroke-dasharray":(9*k)+" "+(7*k)}, s);
+    stext(s, X(d.cut.x), base + 46*k, d.cut.label || fmt(d.cut.x), {size:26*k, mono:isLatin(d.cut.label || "0"), fill:cssv("--text-2"), rtl:!isLatin(d.cut.label || "0")});
+  }
+  return s;
+}
+
+// Horizontal bars with direct value labels.
+function vizBars(w, h, d, k){
+  var s = svg(w, h), items = d.items || [];
+  var labW = w * .32, valW = 120*k, x0 = valW, x1 = w - labW - 20*k;
+  var max = d.max || Math.max.apply(null, items.map(function(i){ return i.value; }));
+  var rowH = Math.min(h / Math.max(items.length, 1), 150*k), top = (h - rowH*items.length)/2, bh = rowH*.5;
+  items.forEach(function(it, i){
+    var y = top + rowH*i + (rowH - bh)/2, bw = (it.value/max)*(x1 - x0);
+    sv("rect", {x:x1 - bw, y:y, width:Math.max(bw, 4*k), height:bh, rx:6*k, fill:it.hl ? cssv("--accent") : cssv("--ci")}, s);
+    stext(s, x1 - bw - 14*k, y + bh/2 + 10*k, (it.display || fmt(it.value)) + (d.unit || ""), {anchor:"end", mono:true, size:28*k, weight:600, fill:cssv("--text")});
+    stext(s, w - 8*k, y + bh/2 + 10*k, it.label, {anchor:"end", size:28*k, weight:600, en:isLatin(it.label), rtl:!isLatin(it.label)});
+  });
+  return s;
+}
+
+// Before -> after per row (e.g. R² vs Adjusted R² after adding a variable).
+function vizDumbbell(w, h, d, k){
+  var s = svg(w, h), items = d.items || [];
+  var labW = w * .34, x0 = 40*k, x1 = w - labW - 30*k;
+  var vals = []; items.forEach(function(i){ vals.push(i.from, i.to); });
+  var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), pad = (hi - lo)*.35 || .1;
+  lo -= pad; hi += pad;
+  var X = function(v){ return x0 + (v - lo)/(hi - lo)*(x1 - x0); };
+  var rowH = Math.min(h / Math.max(items.length, 1), 230*k), top = (h - rowH*items.length)/2;
+  var mk = sv("marker", {id:"ah", viewBox:"0 0 10 10", refX:8, refY:5, markerWidth:4, markerHeight:4, orient:"auto-start-reverse"}, sv("defs", {}, s));
+  sv("path", {d:"M0 0 L10 5 L0 10 z", fill:"context-stroke"}, mk);
+  items.forEach(function(it, i){
+    var y = top + rowH*i + rowH/2, col = it.hl ? cssv("--accent") : cssv("--text-2");
+    sv("line", {x1:X(it.from), x2:X(it.to) + (it.to > it.from ? -18*k : 18*k), y1:y, y2:y, stroke:col, "stroke-width":7*k, "marker-end":"url(#ah)"}, s);
+    sv("circle", {cx:X(it.from), cy:y, r:16*k, fill:cssv("--surface"), stroke:col, "stroke-width":6*k}, s);
+    sv("circle", {cx:X(it.to), cy:y, r:16*k, fill:col}, s);
+    stext(s, X(it.from), y + 62*k, fmt(it.from), {mono:true, size:34*k, fill:cssv("--subtle"), weight:400});
+    stext(s, X(it.to), y - 38*k, fmt(it.to), {mono:true, size:40*k, fill:col, weight:600});
+    stext(s, w - 8*k, y + 14*k, it.label, {anchor:"end", size:40*k, weight:600, en:isLatin(it.label), rtl:!isLatin(it.label)});
+  });
+  return s;
+}
+
+// Seeded scatter with correlation r and an OLS line.
+function vizScatter(w, h, d, k){
+  var s = svg(w, h), n = d.n || 60, r = d.r != null ? d.r : .6, seed = d.seed || 7;
+  var rnd = function(){ seed = (seed*16807) % 2147483647; return (seed - 1)/2147483646; };
+  var gauss = function(){ var u = rnd() || 1e-9, v = rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); };
+  var pts = []; for(var i = 0; i < n; i++){ var x = gauss(), e = gauss(); pts.push([x, r*x + Math.sqrt(1 - r*r)*e]); }
+  var pad = 40*k, X = function(v){ return pad + (v + 3)/6*(w - 2*pad); }, Y = function(v){ return h - pad - (v + 3)/6*(h - 2*pad); };
+  for(var g = -2; g <= 2; g += 2){
+    sv("line", {x1:X(g), x2:X(g), y1:pad, y2:h - pad, stroke:cssv("--grid"), "stroke-width":1.5*k}, s);
+    sv("line", {x1:pad, x2:w - pad, y1:Y(g), y2:Y(g), stroke:cssv("--grid"), "stroke-width":1.5*k}, s);
+  }
+  pts.forEach(function(p){ sv("circle", {cx:X(p[0]), cy:Y(p[1]), r:8*k, fill:cssv("--s1"), opacity:.75}, s); });
+  if(d.line !== false) sv("line", {x1:X(-2.8), y1:Y(-2.8*r), x2:X(2.8), y2:Y(2.8*r), stroke:cssv("--accent"), "stroke-width":5*k}, s);
+  if(d.note) stext(s, pad, pad + 30*k, d.note, {anchor:"start", mono:isLatin(d.note), size:30*k, weight:600, fill:cssv("--text"), rtl:!isLatin(d.note)});
+  return s;
+}
+
+function bigNumber(box, d, k){
+  box.style.alignItems = "center";
+  var n = el("div", "bignum", esc(d.value), {fontSize:(d.size || 150)*k + "px"});
+  box.appendChild(n);
+  if(d.caption) box.appendChild(el("div", "bigcap", rich(d.caption), {fontSize:34*k + "px", marginTop:22*k + "px"}));
+}
+
+function drawViz(box, k){
+  var d = S.visual; if(!d || d.type === "none") return;
+  if(d.type === "number"){ bigNumber(box, d, k); return; }
+  var cap = d.caption ? el("div", "vcap", rich(d.caption), {fontSize:24*k + "px", marginTop:14*k + "px", textAlign:"start"}) : null;
+  var inner = el("div", null, null, {flex:"1 1 auto", minHeight:0, position:"relative"});
+  box.appendChild(inner); if(cap) box.appendChild(cap);
+  var w = inner.clientWidth, h = inner.clientHeight;
+  var fn = {ci:vizCI, dist:vizDist, bars:vizBars, dumbbell:vizDumbbell, scatter:vizScatter}[d.type];
+  if(fn) inner.appendChild(fn(w, h, d, k));
+}
+
+/* ---------------- layouts ---------------- */
+function layoutStandard(o){
+  // o: pad, top, gap, labelPx, titleMax, titleMin, titleH, subPx, logoH, footPad, urlPx, k, vizPanel
+  C.style.padding = o.top + "px " + o.pad + "px " + o.bottom + "px";
+  C.style.gap = o.gap + "px";
+  var tr = topRow(o.labelPx); if(tr) C.appendChild(tr);
+  var t = el("h1", "title", rich(S.title), {flex:"none"});
+  C.appendChild(t);
+  fit(t, o.titleMax, o.titleMin, o.titleH);
+  if(S.subtitle) C.appendChild(el("p", "sub", rich(S.subtitle), {fontSize:o.subPx + "px", flex:"none"}));
+  if(V === "myth" && S.myth){
+    var m = el("div", "myth");
+    [["wrong", S.myth.wrongTag || "الشائع", S.myth.wrong], ["right", S.myth.rightTag || "الأدق", S.myth.right]].forEach(function(r){
+      var cd = el("div", "card " + r[0], null, {padding:(34*o.k)+"px "+(40*o.k)+"px"});
+      cd.appendChild(el("div", "tag", esc(r[1]), {fontSize:(28*o.k)+"px", marginBottom:(10*o.k)+"px"}));
+      cd.appendChild(el("div", "txt", rich(r[2]), {fontSize:(44*o.k)+"px"}));
+      m.appendChild(cd);
+    });
+    C.appendChild(m);
+    C.appendChild(footer(o.logoH, o.urlPx, o.footPad));
+  } else {
+    var box = el("div", "viz" + (o.vizPanel && S.visual && S.visual.type !== "number" ? " panel" : ""));
+    if(o.vizPanel && S.visual && S.visual.type !== "number") box.style.padding = (32*o.k) + "px";
+    C.appendChild(box);
+    C.appendChild(footer(o.logoH, o.urlPx, o.footPad));
+    if(S.visual) drawViz(box, o.k);
+  }
+}
+
+function addPortrait(css){
+  var p = el("img", "portrait"); p.src = "../brand/photos/mohamed-asem-portrait.jpg"; p.alt = "";
+  Object.assign(p.style, css);
+  C.appendChild(p);
+  return p;
+}
+
+var layouts = {
+  post: function(){
+    if(V === "photo"){
+      // Text column on the reading side, portrait on the other, both above the logo row.
+      C.style.padding = "84px 80px 190px 500px";
+      C.style.gap = "28px"; C.style.justifyContent = "center";
+      var tr = topRow(28); if(tr) C.appendChild(tr);
+      var t = el("h1", "title", rich(S.title)); C.appendChild(t); fit(t, 84, 50, 560);
+      if(S.subtitle){ var sb = el("p", "sub", rich(S.subtitle), {fontSize:"34px"}); C.appendChild(sb); }
+      addPortrait({height:"1180px", left:"-150px"});
+      var lg = el("img"); lg.src = logoSrc(); Object.assign(lg.style, {position:"absolute", right:"80px", bottom:"64px", height:"76px", width:"auto", maxWidth:"none"});
+      C.appendChild(lg);
+      C.appendChild(el("span", "url", esc(S.url || "95sigma.tech"), {position:"absolute", right:"98px", bottom:"40px", fontSize:"22px"}));
+      return;
+    }
+    layoutStandard({pad:84, top:84, bottom:64, gap:30, labelPx:28, titleMax:84, titleMin:52, titleH:340, subPx:34, logoH:84, footPad:24, urlPx:26, k:1, vizPanel:true});
+  },
+  reel: function(){
+    if(V === "photo"){
+      // Text stays above the portrait and away from the platform UI at the bottom.
+      C.style.padding = "230px 90px 0"; C.style.gap = "30px";
+      var lg = el("img"); lg.src = logoSrc(); Object.assign(lg.style, {height:"84px", width:"auto", maxWidth:"none", alignSelf:"flex-start"});
+      C.appendChild(lg);
+      var tr = topRow(32); if(tr) C.appendChild(tr);
+      var t = el("h1", "title", rich(S.title)); C.appendChild(t); fit(t, 124, 70, 430);
+      addPortrait({height:"1130px", left:"50%", transform:"translateX(-50%)"});
+      return;
+    }
+    layoutStandard({pad:90, top:230, bottom:400, gap:40, labelPx:32, titleMax:118, titleMin:70, titleH:560, subPx:40, logoH:96, footPad:28, urlPx:28, k:1.15, vizPanel:false});
+  },
+  yt: function(){
+    if(V === "photo"){
+      C.style.padding = "56px 60px 50px"; C.style.gap = "22px";
+      C.style.paddingLeft = "470px";
+      var tr = topRow(22, 12); if(tr) C.appendChild(tr);
+      var t = el("h1", "title", '<span>' + rich(S.title) + '</span>', {flex:"1 1 0", minHeight:0, display:"flex", alignItems:"center"}); C.appendChild(t); fit(t, 104, 50);
+      var lg = el("img"); lg.src = logoSrc(); Object.assign(lg.style, {height:"58px", width:"auto", maxWidth:"none", alignSelf:"flex-start", flex:"none"});
+      C.appendChild(lg);
+      addPortrait({height:"700px", left:"-20px"});
+      return;
+    }
+    // Title on the reading side, visual on the other.
+    C.style.flexDirection = "row"; C.style.padding = "56px 60px"; C.style.gap = "48px";
+    var col = el("div", null, null, {flex:"0 0 55%", display:"flex", flexDirection:"column", gap:"20px"});
+    C.appendChild(col);
+    var tr = topRow(22, 12); if(tr) col.appendChild(tr);
+    var t = el("h1", "title", '<span>' + rich(S.title) + '</span>', {flex:"1 1 0", minHeight:0, display:"flex", alignItems:"center"}); col.appendChild(t); fit(t, 96, 46);
+    var lg = el("img"); lg.src = logoSrc(); Object.assign(lg.style, {height:"54px", width:"auto", maxWidth:"none", alignSelf:"flex-start", flex:"none"});
+    col.appendChild(lg);
+    var box = el("div", "viz", null, {flex:"1 1 auto"}); C.appendChild(box);
+    if(S.visual) drawViz(box, .7);
+  }
+};
+
+function run(){
+  (layouts[S.format] || layouts.post)();
+  window.__ready = true;
+}
+document.fonts.ready.then(function(){
+  // Load every face we use before measuring text.
+  return Promise.all(["400","500","600","700"].map(function(w){ return document.fonts.load(w + ' 40px "IBM Plex Sans Arabic"', "ا"); })
+    .concat([document.fonts.load('600 40px "IBM Plex Mono"', "0"), document.fonts.load('400 40px "IBM Plex Mono"', "0"),
+             document.fonts.load('600 40px "IBM Plex Sans"', "R"), document.fonts.load('700 40px "IBM Plex Sans"', "R")]));
+}).then(run, run);
+</script>
+</body>
+</html>
