@@ -75,15 +75,31 @@ ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;g
 .refs{font-size:13px;color:var(--text-2);direction:ltr;text-align:left;padding-left:20px;margin:0;display:flex;flex-direction:column;gap:6px}
 .refs a{color:var(--accent);word-break:break-word}
 @media (max-width:480px){h1{font-size:24px}.say{font-size:19px}body.reading .say{font-size:22px}.take{padding:14px;gap:4px 10px}}
+.part{list-style:none;padding-top:14px}
+.part h2{font-size:18px;color:var(--accent);margin:0;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.flow{display:flex;flex-direction:column;gap:10px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.step .sn{grid-row:1 / span 3;font-family:var(--font-mono);font-weight:600;font-size:20px;color:var(--accent)}
+.step .q{font-weight:700;font-size:18px;min-width:0}
+.step .sub{color:var(--text-2);font-size:15px;min-width:0}
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;min-width:0}
+.br{background:var(--surface-2);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:15px;min-width:0}
+.br b{font-weight:600}
+.tblwrap{overflow-x:auto}
+table.test{border-collapse:collapse;width:100%;min-width:420px;font-size:15px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+table.test th,table.test td{padding:8px 12px;border-bottom:1px solid var(--border);text-align:start}
+table.test th{color:var(--text-2);font-weight:600;background:var(--surface-2)}
+.src-line{margin:0;font-size:13px;color:var(--text-3)}
+body.reading .part h2{font-size:20px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 
 <div class="wrap">
 <header>
   <div class="eyebrow"><span class="en">95 Sigma</span> · سكريبت ريل</div>
-  <h1>أستخدم AMOS ولا SmartPLS؟</h1>
-  <div class="meta"><span>10 لقطات</span><span>حوالي <span class="num">95</span> ثانية</span><span>فيسبوك و YouTube Shorts</span></div>
-  <p class="lead">كل لقطة جملتين أو تلاتة تقولهم في take لوحده. الريل بيبدأ بالسؤال نفسه، والكلام مكتوب بطريقة كلامك عشان يتقال زي ما هو. غيّر أي كلمة مش مريحاك. اللقطة 9 اختيارية لو عايز الريل أقصر.</p>
+  <h1>أستخدم AMOS ولا SmartPLS؟ لأ، هستخدم موديل إيه؟</h1>
+  <div class="meta"><span>19 لقطة في 5 أجزاء</span><span>حوالي <span class="num">3</span> لـ <span class="num">3.5</span> دقيقة</span><span>فيسبوك و YouTube Shorts</span></div>
+  <p class="lead">كل لقطة جملتين أو تلاتة تقولهم في take لوحده. بيبدأ بالسؤال، وبعدين Reflective و Formative، وبعدين إثبات نظرية ولا تنبؤ، وآخره الخريطة. كل لقطة جملتين تقولهم في take لوحده، والوقت جنبها تقريبي. الكلام بطريقة كلامك، غيّر أي كلمة مش مريحاك.</p>
 </header>
 
 <div class="controls">
@@ -92,57 +108,138 @@ ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;g
 </div>
 
 <ol class="takes">
+  <li class="part"><h2>البداية: الموضوع أكبر من البرنامج</h2></li>
   <li class="take"><span class="no">1</span>
-    <div class="head"><h3>السؤال</h3><span class="time">0:00–0:06</span></div>
+    <div class="head"><h3>السؤال</h3><span class="time">0:00–0:09</span></div>
     <div class="say"><p>أستخدم AMOS ولا SmartPLS؟</p><p>دا أكتر سؤال بيجيلي. واحد عايز يختبر فروض على استبيان، ويقولي: إيه الأسهل وإيه الأحسن؟</p></div>
     <div class="notes"><div><b>على الشاشة</b><span class="screen">AMOS ولا SmartPLS؟</span></div></div>
   </li>
   <li class="take"><span class="no">2</span>
-    <div class="head"><h3>السؤال غلط</h3><span class="time">0:06–0:12</span></div>
-    <div class="say"><p>بص، السؤال دا غلط من أساسه.</p><p>عشان كل برنامج من دول وراه نموذج مختلف خالص، مش نفس الحاجة بشكل تاني.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">السؤال غلط من أساسه</span></div></div>
+    <div class="head"><h3>السؤال الصح</h3><span class="time">0:09–0:15</span></div>
+    <div class="say"><p>بص، الموضوع أكبر من إنك تختار برنامج.</p><p>السؤال الصح: أنا هستخدم موديل إيه بالظبط؟</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">هستخدم موديل إيه بالظبط؟</span></div></div>
   </li>
   <li class="take"><span class="no">3</span>
-    <div class="head"><h3>ورا كل برنامج نموذج</h3><span class="time">0:12–0:23</span></div>
-    <div class="say"><p>الـ AMOS بيشتغل بـ <span class="en">CB-SEM</span>، والـ SmartPLS معروف بـ <span class="en">PLS-SEM</span>. وكل واحد فيهم شايف المتغيرات بتاعتك بطريقة مختلفة.</p><p>وعلى فكرة SmartPLS 4 بقى فيه CB-SEM كمان. يعني الموضوع مش في البرنامج، الموضوع في النموذج.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">CB-SEM ولا PLS-SEM؟</span></div></div>
+    <div class="head"><h3>البرنامج مجرد أداة</h3><span class="time">0:15–0:28</span></div>
+    <div class="say"><p>الـ AMOS بيشتغل بموديل اسمه <span class="en">CB-SEM</span>، والـ SmartPLS معروف بموديل اسمه <span class="en">PLS-SEM</span>.</p><p>وعلى فكرة SmartPLS 4 بقى فيه CB-SEM كمان. يعني البرنامج مجرد أداة، والموديل هو اللي بيفرق.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">البرنامج أداة، الموديل بيفرق</span></div></div>
   </li>
   <li class="take"><span class="no">4</span>
-    <div class="head"><h3>Reflective</h3><span class="time">0:23–0:35</span></div>
-    <div class="say"><p>طيب يعني إيه شايف المتغيرات بطريقة مختلفة؟ خد مثلًا رضا العميل.</p><p>بتسأله: إنت راضي؟ البنك قابل توقعاتك؟ إنت مبسوط إنك عميل هنا؟ التلات أسئلة دول بيقولوا نفس الحاجة، والرضا هو اللي بيطلّع الإجابات. ودا اسمه <span class="en">Reflective</span>.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">Reflective: الأسئلة بتعكس المتغير</span></div><div><b>لقطة مساعدة</b><span>دايرة «الرضا» والأسهم طالعة منها للأسئلة</span></div></div>
+    <div class="head"><h3>حاجتين بيحددوا الموديل</h3><span class="time">0:28–0:35</span></div>
+    <div class="say"><p>والموديل بيتحدد من حاجتين: المتغيرات بتاعتك نوعها إيه، وإنت عايز إيه من الدراسة.</p><p>ونبدأ بالأولى.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">نوع المتغيرات + هدف الدراسة</span></div></div>
   </li>
+  <li class="part"><h2>Reflective ولا Formative</h2></li>
   <li class="take"><span class="no">5</span>
-    <div class="head"><h3>Formative</h3><span class="time">0:35–0:47</span></div>
-    <div class="say"><p>لكن جودة الخدمة بقى، بتسأل فيها عن سرعة الرد، ونضافة الفرع، ووضوح الرسوم.</p><p>ممكن الفرع يبقى نضيف جدًا والرد بطيء. ولو شلت سؤال منهم، المعنى نفسه نقص. هنا الأسئلة هي اللي بتعمل المتغير، ودا اسمه <span class="en">Formative</span>.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">Formative: الأسئلة بتكوّن المتغير</span></div><div><b>لقطة مساعدة</b><span>نفس الرسمة بس الأسهم داخلة على «جودة الخدمة»</span></div></div>
+    <div class="head"><h3>مين بيعمل مين</h3><span class="time">0:35–0:44</span></div>
+    <div class="say"><p>كل متغير في الاستبيان بتقيسه بكذا سؤال.</p><p>والسؤال المهم: المتغير هو اللي بيطلّع الإجابات، ولا الإجابات هي اللي بتعمل المتغير؟</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">مين بيعمل مين؟</span></div></div>
   </li>
   <li class="take"><span class="no">6</span>
-    <div class="head"><h3>تفرق إزاي</h3><span class="time">0:47–0:55</span></div>
-    <div class="say"><p>فعشان تفرق بسهولة، اسأل نفسك سؤالين:</p><p>لو شلت سؤال، المعنى اتغير؟ ولو إجابة سؤال زادت، الباقي لازم يزيد معاها؟</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">لو شلت سؤال، المعنى اتغير؟</span></div><div><b>تفتكر</b><span>لو المعنى اتغير = Formative. لو الأسئلة لازم تمشي مع بعض = Reflective.</span></div></div>
+    <div class="head"><h3>Reflective</h3><span class="time">0:44–0:59</span></div>
+    <div class="say"><p>خد رضا العميل. بتسأله: إنت راضي؟ البنك قابل توقعاتك؟ إنت مبسوط إنك عميل هنا؟</p><p>لو العميل راضي، هيوافق على التلاتة مع بعض. يعني الرضا هو السبب، والأسئلة مجرد انعكاس ليه. ودا اسمه <span class="en">Reflective</span>.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">Reflective: الأسئلة بتعكس المتغير</span></div><div><b>لقطة مساعدة</b><span>دايرة «الرضا» والأسهم طالعة منها للأسئلة</span></div></div>
   </li>
   <li class="take"><span class="no">7</span>
-    <div class="head"><h3>عايز إيه من الدراسة</h3><span class="time">0:55–1:07</span></div>
-    <div class="say"><p>تاني حاجة لازم تبص عليها: إنت عايز إيه من الدراسة؟</p><p>لو عندك نظرية معروفة وعايز تتأكد إنها ماشية مع الداتا بتاعتك، واللجنة هتسألك على الـ <span class="en">fit</span>، يبقى CB-SEM. ولو عايز تعرف إيه أكتر العوامل اللي بتتنبأ بالمتغير التابع، يبقى PLS-SEM.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">تأكيد نظرية ولا تنبؤ؟</span></div></div>
+    <div class="head"><h3>لو شلت سؤال</h3><span class="time">0:59–1:08</span></div>
+    <div class="say"><p>ولو شلت سؤال من التلاتة؟ ولا حاجة حصلت، الباقيين لسه بيقيسوا الرضا.</p><p>وعشان كده الأسئلة هنا لازم تكون مرتبطة ببعض قوي.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">شلت سؤال؟ المعنى زي ما هو</span></div></div>
   </li>
   <li class="take"><span class="no">8</span>
-    <div class="head"><h3>الأرقام</h3><span class="time">1:07–1:19</span></div>
-    <div class="say"><p>وعشان تعرف إن الكلام دا مش نظري، أنا عملت محاكاة: نفس الـ 300 استبيان، والأثر الحقيقي <span class="num">0.50</span>.</p><p>بطريقة AMOS طلع <span class="num">0.49</span>، وبطريقة SmartPLS طلع <span class="num">0.39</span>. ولما الداتا كانت زي جودة الخدمة، الآية اتقلبت، والـ CB-SEM هو اللي كبّر الرقم.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">نفس الداتا، رقمين مختلفين</span></div><div><b>الأرقام</b><span>محاكاة: <span class="en">n = 300</span>، 1000 تكرار. على داتا Reflective: CB-SEM طلع 0.50 و PLS-SEM طلع 0.38 في المتوسط، وفي داتا واحدة 0.49 و 0.39. على داتا composite: CB-SEM طلع 0.59 و PLS-SEM طلع 0.50.</span></div></div>
+    <div class="head"><h3>Formative</h3><span class="time">1:08–1:20</span></div>
+    <div class="say"><p>لكن جودة الخدمة بقى: سرعة الرد، نضافة الفرع، وضوح الرسوم.</p><p>ممكن الفرع يبقى نضيف جدًا والرد بطيء. يعني الأسئلة هنا مش لازم تمشي مع بعض.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">الأسئلة مش لازم تمشي مع بعض</span></div><div><b>لقطة مساعدة</b><span>نفس الرسمة بس الأسهم داخلة على «جودة الخدمة»</span></div></div>
   </li>
-  <li class="take optional"><span class="no">9</span>
-    <div class="head"><h3>متختارش بالعينة</h3><span class="tag">اختيارية</span><span class="time">1:19–1:27</span></div>
-    <div class="say"><p>وخلي بالك، متختارش SmartPLS عشان العينة صغيرة أو الداتا مش طبيعية وخلاص.</p><p>ولو الـ fit في AMOS طلع وحش، الهروب لـ SmartPLS مش هيحل المشكلة.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">العينة الصغيرة مش سبب كفاية</span></div></div>
+  <li class="take"><span class="no">9</span>
+    <div class="head"><h3>المعنى بينقص</h3><span class="time">1:20–1:28</span></div>
+    <div class="say"><p>ولو شلت وضوح الرسوم، جودة الخدمة نفسها بقت ناقصة حتة.</p><p>هنا الأسئلة هي اللي بتعمل المتغير، ودا اسمه <span class="en">Formative</span>.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">Formative: الأسئلة بتكوّن المتغير</span></div></div>
   </li>
   <li class="take"><span class="no">10</span>
-    <div class="head"><h3>القفلة</h3><span class="time">1:27–1:36</span></div>
-    <div class="say"><p>فالخلاصة: متسألش أنهي برنامج أسهل. اسأل دراستي عاملة إزاي، عشان تطلع نتايج بتخدم فكرة البحث فعلًا، مش أي نتايج وخلاص.</p><p>ولو مش متأكد دراستك تمشي بأنهي نموذج، ابعتلنا ونعملك تقييم أولي مجاني.</p></div>
-    <div class="notes"><div><b>على الشاشة</b><span class="screen">اسأل دراستك، مش البرنامج</span></div><div><b>آخر فريم</b><span>95sigma.tech</span></div></div>
+    <div class="head"><h3>تفرق من غير حيرة</h3><span class="time">1:28–1:39</span></div>
+    <div class="say"><p>فعشان تفرق من غير ما تحتار، اسأل نفسك تلات أسئلة:</p><p>مين بيعمل مين؟ لو شلت سؤال المعنى بيتغير؟ والأسئلة لازم تزيد وتقل مع بعض؟</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">3 أسئلة تفرق بيهم</span></div><div><b>لقطة مساعدة</b><span>الجدول الصغير اللي تحت في قسم الخريطة</span></div></div>
+  </li>
+  <li class="take"><span class="no">11</span>
+    <div class="head"><h3>ليه دا مهم</h3><span class="time">1:39–1:58</span></div>
+    <div class="say"><p>طب وإيه المشكلة لو اخترت غلط؟ أنا عملت محاكاة: 300 استبيان، والأثر الحقيقي <span class="num">0.50</span>.</p><p>على متغيرات Reflective، الـ CB-SEM طلع <span class="num">0.49</span>، والـ PLS-SEM طلع <span class="num">0.39</span>. ولما المتغيرات كانت زي جودة الخدمة، الآية اتقلبت، والـ CB-SEM هو اللي كبّر الرقم لحوالي <span class="num">0.59</span>.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">نفس الداتا، رقمين مختلفين</span></div><div><b>لقطة مساعدة</b><span>الرقمين جنب بعض، وتحتهم «محاكاة، <span class="en">n = 300</span>»</span></div><div><b>الأرقام</b><span>محاكاة: <span class="en">n = 300</span>، 1000 تكرار. على داتا Reflective: CB-SEM طلع 0.50 و PLS-SEM طلع 0.38 في المتوسط، وفي داتا واحدة 0.49 و 0.39. على داتا composite: CB-SEM طلع 0.59 و PLS-SEM طلع 0.50 في المتوسط.</span></div></div>
+  </li>
+  <li class="part"><h2>إثبات نظرية ولا تنبؤ</h2></li>
+  <li class="take"><span class="no">12</span>
+    <div class="head"><h3>عايز إيه من الدراسة</h3><span class="time">1:58–2:03</span></div>
+    <div class="say"><p>تاني حاجة: إنت عايز إيه من الدراسة؟</p><p>تثبت نظرية، ولا تتنبأ؟</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">تثبت نظرية ولا تتنبأ؟</span></div></div>
+  </li>
+  <li class="take"><span class="no">13</span>
+    <div class="head"><h3>إثبات نظرية</h3><span class="time">2:03–2:21</span></div>
+    <div class="say"><p>إثبات نظرية يعني عندك نموذج معروف ومتجرب في دراسات كتير، زي نموذج قبول التكنولوجيا <span class="en">TAM</span>، وعايز تشوف الداتا بتاعتك ماشية معاه ولا لأ.</p><p>هنا اللجنة هتسألك على الـ <span class="en">fit</span>، يعني النموذج كله على بعضه مطابق للداتا ولا لأ. ودي شغلة CB-SEM.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">إثبات نظرية = fit = CB-SEM</span></div></div>
+  </li>
+  <li class="take"><span class="no">14</span>
+    <div class="head"><h3>تنبؤ</h3><span class="time">2:21–2:40</span></div>
+    <div class="say"><p>التنبؤ يعني إنت مهتم بالمتغير التابع نفسه. عايز تعرف إيه أكتر حاجة بتأثر على نية الشراء مثلًا، وإيه العوامل اللي لو اتحسنت هتفرق.</p><p>أو بتضيف متغيرات جديدة لنظرية لسه بتتبني. هنا بتبص على قد إيه النموذج بيفسر ويتنبأ، ودي شغلة PLS-SEM.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">تنبؤ = أهم العوامل = PLS-SEM</span></div></div>
+  </li>
+  <li class="part"><h2>الخريطة: تختار الموديل إزاي</h2></li>
+  <li class="take"><span class="no">15</span>
+    <div class="head"><h3>الخطوة 1</h3><span class="time">2:40–2:53</span></div>
+    <div class="say"><p>طيب نحطهم مع بعض في خريطة. أول خطوة: عندك متغير Formative؟</p><p>لو آه، الـ PLS-SEM أريح. ولو لازم تقدم fit، فيه طريقة في CB-SEM اسمها <span class="en">MIMIC</span>، بس محتاجة شغل.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">1. عندك متغير Formative؟</span></div><div><b>لقطة مساعدة</b><span>الخريطة اللي تحت، والخطوة الأولى منورة</span></div></div>
+  </li>
+  <li class="take"><span class="no">16</span>
+    <div class="head"><h3>الخطوة 2</h3><span class="time">2:53–3:06</span></div>
+    <div class="say"><p>لو كل متغيراتك Reflective، روح للخطوة التانية: هدفك إثبات نظرية؟ يبقى CB-SEM، سواء على AMOS أو على SmartPLS.</p><p>هدفك تنبؤ؟ يبقى PLS-SEM، واستخدم منه <span class="en">PLSc</span> عشان المتغيرات Reflective.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">2. إثبات نظرية ولا تنبؤ؟</span></div></div>
+  </li>
+  <li class="take"><span class="no">17</span>
+    <div class="head"><h3>الخطوة 3</h3><span class="time">3:06–3:17</span></div>
+    <div class="say"><p>تالت خطوة: احسب حجم العينة على الموديل اللي اخترته. العينة مش هي اللي بتختار الموديل.</p><p>ومتختارش SmartPLS عشان العينة صغيرة أو الداتا مش طبيعية وخلاص.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">3. احسب العينة للموديل</span></div></div>
+  </li>
+  <li class="take"><span class="no">18</span>
+    <div class="head"><h3>الخطوة 4</h3><span class="time">3:17–3:26</span></div>
+    <div class="say"><p>رابع خطوة: اكتب في الرسالة ليه اخترت الموديل دا، ومعاه مرجع.</p><p>عشان أول سؤال في المناقشة هيبقى: ليه دا بالذات؟</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">4. اكتب ليه اخترته</span></div></div>
+  </li>
+  <li class="part"><h2>القفلة</h2></li>
+  <li class="take"><span class="no">19</span>
+    <div class="head"><h3>الخلاصة</h3><span class="time">3:26–3:41</span></div>
+    <div class="say"><p>فالخلاصة: متسألش أنهي برنامج أسهل. اسأل أنا هستخدم موديل إيه، عشان تطلع نتايج بتخدم فكرة البحث فعلًا، مش أي نتايج وخلاص.</p><p>ولو مش متأكد دراستك تمشي بأنهي موديل، ابعتلنا ونعملك تقييم أولي مجاني.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">اسأل عن الموديل، مش البرنامج</span></div></div>
   </li>
 </ol>
+
+<section id="map">
+  <h2>الخريطة</h2>
+  <p class="lead">دي الخريطة اللي في اللقطات 15 لـ 18، وتنفع رسمة على الشاشة وانت بتشرحها.</p>
+  <div class="flow">
+    <div class="step"><span class="sn">1</span><div class="q">عندك متغير Formative؟</div>
+      <div class="branches">
+        <div class="br"><b>آه</b><span>الـ PLS-SEM هو الأريح. ولو الـ fit لازم يتقدم: CB-SEM بنموذج MIMIC.</span></div>
+        <div class="br"><b>لأ، كله Reflective</b><span>كمّل للخطوة 2.</span></div>
+      </div>
+    </div>
+    <div class="step"><span class="sn">2</span><div class="q">هدفك إيه من الدراسة؟</div>
+      <div class="branches">
+        <div class="br"><b>إثبات نظرية معروفة، والـ fit مهم</b><span>الـ CB-SEM، على AMOS أو SmartPLS 4.</span></div>
+        <div class="br"><b>تنبؤ، أو أهم العوامل، أو نظرية لسه بتتبني</b><span>الـ PLS-SEM، واستخدم PLSc عشان المتغيرات Reflective.</span></div>
+      </div>
+    </div>
+    <div class="step"><span class="sn">3</span><div class="q">احسب حجم العينة على الموديل اللي اخترته</div><div class="sub">العينة مش هي اللي بتختار الموديل. الصغيرة أو اللي مش طبيعية سبب مساعد بس.</div></div>
+    <div class="step"><span class="sn">4</span><div class="q">اكتب في الرسالة ليه اخترته، ومعاه مرجع</div><div class="sub">مثلًا <span class="en">Hair et al. (2019)</span> أو <span class="en">Sarstedt et al. (2016)</span>.</div></div>
+  </div>
+  <div class="tblwrap"><table class="test">
+    <thead><tr><th>اسأل نفسك</th><th>Reflective</th><th>Formative</th></tr></thead>
+    <tbody>
+      <tr><td>مين بيعمل مين؟</td><td>المتغير بيطلّع الإجابات</td><td>الإجابات بتعمل المتغير</td></tr>
+      <tr><td>لو شلت سؤال؟</td><td>المعنى زي ما هو</td><td>المعنى بينقص</td></tr>
+      <tr><td>الأسئلة لازم تمشي مع بعض؟</td><td>آه، ارتباط قوي</td><td>مش شرط</td></tr>
+      <tr><td>مثال</td><td>رضا العميل</td><td>جودة الخدمة</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src-line">الاختبار ده من <span class="en">Jarvis, MacKenzie &amp; Podsakoff (2003)</span>.</p>
+</section>
 
 <section>
   <h2>اتصلح من كلام Gemini</h2>
@@ -218,6 +315,7 @@ ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;g
     <li>Kock &amp; Hadaya (2018). Minimum sample size estimation in PLS-SEM. Information Systems Journal, 28(1). <a href="https://doi.org/10.1111/isj.12131">doi</a></li>
     <li>Bollen &amp; Stine (1992). Bootstrapping goodness-of-fit measures in structural equation models. Sociological Methods &amp; Research, 21(2).</li>
     <li>Shmueli et al. (2019). Predictive model assessment in PLS-SEM: Guidelines for using PLSpredict. European Journal of Marketing, 53(11). <a href="https://doi.org/10.1108/EJM-02-2019-0189">doi</a></li>
+    <li>Jarvis, MacKenzie &amp; Podsakoff (2003). A critical review of construct indicators and measurement model misspecification in marketing and consumer research. Journal of Consumer Research, 30(2). <a href="https://doi.org/10.1086/376806">doi</a></li>
     <li>Kline (2016). Principles and practice of structural equation modeling (4th ed.). Guilford.</li>
     <li>SmartPLS. When to use PLS-SEM (and when not). <a href="https://www.smartpls.com/documentation/choosing-pls-sem/more-insights-on-when-to-use-pls-sem-and-when-not">smartpls.com</a> · What's new in SmartPLS 4. <a href="https://smartpls.com/faq/smartpls4/whatsnew">smartpls.com</a></li>
   </ol>
