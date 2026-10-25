@@ -2,17 +2,29 @@
   {
     "name": "post-crossed-a",
     "format": "post",
-    "variant": "light",
-    "label": "المتغيرات الضابطة",
+    "variant": "dark",
+    "label": "المتغيرات الضابطة · Control Variables",
     "title": "السن والنوع ممكن *يبوّظوا* بحثك",
-    "visual": { "type": "crossed", "items": ["السن", "النوع"] }
+    "visual": {
+      "type": "crossed",
+      "items": [
+        "السن",
+        "النوع"
+      ]
+    }
   },
   {
     "name": "post-crossed-b",
     "format": "post",
-    "variant": "light",
-    "label": "المتغيرات الضابطة",
+    "variant": "dark",
+    "label": "المتغيرات الضابطة · Control Variables",
     "title": "إنت حاطط السن والنوع *ليه*؟",
-    "visual": { "type": "crossed", "items": ["السن", "النوع"] }
+    "visual": {
+      "type": "crossed",
+      "items": [
+        "السن",
+        "النوع"
+      ]
+    }
   }
 ]
