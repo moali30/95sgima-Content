@@ -64,6 +64,10 @@ em.hl{font-style:normal;color:var(--accent)}
 .myth .txt{font-weight:600;line-height:1.45}
 .myth .wrong .txt{color:var(--text-2);text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--border-strong)}
 
+.crossed{display:flex;gap:28px;justify-content:center;align-items:stretch}
+.crossed .chip{position:relative;flex:1 1 0;display:flex;align-items:center;justify-content:center;
+  background:var(--surface);border:1.5px solid var(--border-strong);border-radius:14px;font-weight:700;color:var(--text-2)}
+.crossed svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .portrait{position:absolute;bottom:0;mix-blend-mode:multiply;max-width:none}
 </style>
 </head>
@@ -316,9 +320,26 @@ function bigNumber(box, d, k){
   if(d.caption) box.appendChild(el("div", "bigcap", rich(d.caption), {fontSize:34*k + "px", marginTop:22*k + "px"}));
 }
 
+// Words struck out with a hand-drawn style X (e.g. controls you should not add by habit).
+function crossed(box, d, k){
+  var row = el("div", "crossed", null, {height:(d.height || 300)*k + "px"});
+  (d.items || []).forEach(function(t){
+    var c = el("div", "chip", rich(t), {fontSize:(d.size || 92)*k + "px"});
+    var s = svg(10, 10); s.setAttribute("viewBox", "0 0 100 100"); s.setAttribute("preserveAspectRatio", "none");
+    [[14, 16, 86, 84], [86, 16, 14, 84]].forEach(function(l){
+      sv("line", {x1:l[0], y1:l[1], x2:l[2], y2:l[3], stroke:cssv("--s2"), "stroke-width":2.2, "stroke-linecap":"round", "vector-effect":"non-scaling-stroke"}, s);
+    });
+    s.querySelectorAll("line").forEach(function(ln){ ln.setAttribute("stroke-width", 11*k); });
+    c.appendChild(s); row.appendChild(c);
+  });
+  box.appendChild(row);
+  if(d.caption) box.appendChild(el("div", "bigcap", rich(d.caption), {fontSize:38*k + "px", marginTop:34*k + "px"}));
+}
+
 function drawViz(box, k){
   var d = S.visual; if(!d || d.type === "none") return;
   if(d.type === "number"){ bigNumber(box, d, k); return; }
+  if(d.type === "crossed"){ crossed(box, d, k); return; }
   var cap = d.caption ? el("div", "vcap", rich(d.caption), {fontSize:24*k + "px", marginTop:14*k + "px", textAlign:"start"}) : null;
   var inner = el("div", null, null, {flex:"1 1 auto", minHeight:0, position:"relative"});
   box.appendChild(inner); if(cap) box.appendChild(cap);
@@ -348,8 +369,9 @@ function layoutStandard(o){
     C.appendChild(m);
     C.appendChild(footer(o.logoH, o.urlPx, o.footPad));
   } else {
-    var box = el("div", "viz" + (o.vizPanel && S.visual && S.visual.type !== "number" ? " panel" : ""));
-    if(o.vizPanel && S.visual && S.visual.type !== "number") box.style.padding = (32*o.k) + "px";
+    var plain = S.visual && (S.visual.type === "number" || S.visual.type === "crossed");
+    var box = el("div", "viz" + (o.vizPanel && S.visual && !plain ? " panel" : ""));
+    if(o.vizPanel && S.visual && !plain) box.style.padding = (32*o.k) + "px";
     C.appendChild(box);
     C.appendChild(footer(o.logoH, o.urlPx, o.footPad));
     if(S.visual) drawViz(box, o.k);

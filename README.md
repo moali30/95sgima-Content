@@ -60,5 +60,6 @@ node render/render.js topics/2026-10-25-power-analysis/visual.json
 - `bars`: أعمدة أفقية. `{items:[{label, value, hl}], unit, caption}`
 - `dumbbell`: قبل وبعد. `{items:[{label, from, to, hl}], caption}`
 - `scatter`: انتشار بمعامل ارتباط. `{r, n, seed, note}`
+- `crossed`: كلمات عليها علامة غلط (X). `{items:["السن","النوع"], caption, size, height}`
 
 أي رقم في الرسم لازم يكون من الريسرش أو من محاكاة متوثقة، والـ `caption` بيقول `n` والوحدة. لو المثال توضيحي، الكابشن يقول «مثال توضيحي».
