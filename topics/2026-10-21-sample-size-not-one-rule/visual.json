@@ -1,21 +1,46 @@
 [
   {
     "name": "reel-cover-photo",
-    "format": "reel", "variant": "photo",
-    "series": "ما لا يسع الباحث جهله", "episode": 1,
-    "title": "نموذجك مش بيسأل عن *حجم المجتمع*"
+    "format": "reel",
+    "variant": "photo",
+    "series": "ما لا يسع الباحث جهله",
+    "episode": 1,
+    "title": "أول خطوة بتبدأ فيها تحليل إحصائي هي أول خطوة *بتقضي فيها على بحثك*\n(حجم العينة)"
+  },
+  {
+    "name": "reel-cover-photo-soft",
+    "format": "reel",
+    "variant": "photo",
+    "series": "ما لا يسع الباحث جهله",
+    "episode": 1,
+    "title": "أول خطوة بتبدأ فيها تحليل إحصائي ممكن تكون أول خطوة *بتقضي فيها على بحثك*\n(حجم العينة)"
   },
   {
     "name": "reel-cover-dark",
-    "format": "reel", "variant": "dark",
-    "series": "ما لا يسع الباحث جهله", "episode": 1,
+    "format": "reel",
+    "variant": "dark",
+    "series": "ما لا يسع الباحث جهله",
+    "episode": 1,
     "title": "370 استبيان؟ *كتير ولا قليل*",
     "subtitle": "الجدول بيحسب نسبة، ونموذجك بيحسب حاجة تانية",
-    "visual": {"type": "bars", "caption": "α = 0.05 · القوة 0.80 · الانحدار بـ 5 متغيرات مستقلة · ANOVA بـ 3 مجموعات",
+    "visual": {
+      "type": "bars",
+      "caption": "α = 0.05 · القوة 0.80 · الانحدار بـ 5 متغيرات مستقلة · ANOVA بـ 3 مجموعات",
       "items": [
-        {"label": "الجدول (مجتمع 10,000)", "value": 370},
-        {"label": "انحدار، أثر متوسط", "value": 92},
-        {"label": "ANOVA، أثر صغير", "value": 969, "hl": true}
-      ]}
+        {
+          "label": "الجدول (مجتمع 10,000)",
+          "value": 370
+        },
+        {
+          "label": "انحدار، أثر متوسط",
+          "value": 92
+        },
+        {
+          "label": "ANOVA، أثر صغير",
+          "value": 969,
+          "hl": true
+        }
+      ]
+    }
   }
 ]
