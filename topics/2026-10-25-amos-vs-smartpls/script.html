@@ -1,0 +1,235 @@
+<title>سكريبت AMOS و SmartPLS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one reading column of numbered takes (لقطات), then the corrections and sources below. 95 Sigma brand tokens. */
+:root{
+  --bg:#F1F5F3; --surface:#FFFFFF; --surface-2:#E4EDEA;
+  --text:#0E3A3C; --text-2:#3F5C5C; --text-3:#536D6B;
+  --accent:#237A72; --accent-soft:#DCEEEA;
+  --border:#D2E0DC; --warn:#A97400; --warn-soft:#F7EEDA;
+  --ink-band:#0E3A3C; --ink-band-text:#E8F2EF;
+  --font-ar:"IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B2E30; --surface:#0E3A3C; --surface-2:#13474A;
+  --text:#E8F2EF; --text-2:#A9C6C2; --text-3:#8FB0AC;
+  --accent:#6FE3D2; --accent-soft:#174E50;
+  --border:#1F5759; --warn:#E5B85A; --warn-soft:#3A3420;
+  --ink-band:#071F21; --ink-band-text:#E8F2EF; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0B2E30; --surface:#0E3A3C; --surface-2:#13474A;
+  --text:#E8F2EF; --text-2:#A9C6C2; --text-3:#8FB0AC;
+  --accent:#6FE3D2; --accent-soft:#174E50;
+  --border:#1F5759; --warn:#E5B85A; --warn-soft:#3A3420;
+  --ink-band:#071F21; --ink-band-text:#E8F2EF; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font-ar);font-size:16px;line-height:1.75;direction:rtl}
+.wrap{max-width:760px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:28px}
+.en{direction:ltr;unicode-bidi:isolate;font-family:var(--font-ar)}
+.num{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font-size:13px;letter-spacing:.02em;color:var(--accent);font-weight:600}
+h1{font-size:30px;line-height:1.35;margin:0;font-weight:700;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--text-3);font-size:14px}
+.lead{margin:0;color:var(--text-2);max-width:62ch}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:env(safe-area-inset-top, 0px);background:var(--bg);padding-block:10px;z-index:5;border-bottom:1px solid var(--border)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+button{font:inherit;font-size:14px;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hint{font-size:13px;color:var(--text-3)}
+ol.takes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.take{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px}
+.take .no{grid-row:1 / span 3;font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--accent);line-height:1.3;min-width:2ch}
+.take .head{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;min-width:0}
+.take h3{margin:0;font-size:15px;font-weight:600;color:var(--text-2)}
+.time{font-family:var(--font-mono);font-size:12px;color:var(--text-3);direction:ltr}
+.say{margin:0;font-size:21px;line-height:1.85;font-weight:500;min-width:0}
+.say p{margin:0}
+.say p + p{margin-top:6px}
+.notes{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--text-2);min-width:0}
+.notes div{display:flex;gap:8px}
+.notes b{font-weight:600;color:var(--text-3);flex:none}
+.screen{background:var(--accent-soft);color:var(--text);padding:1px 8px;border-radius:4px;font-weight:600}
+body.reading .notes, body.reading .take h3{display:none}
+body.reading .say{font-size:25px}
+.optional{border-style:dashed}
+.tag{font-size:12px;color:var(--warn);background:var(--warn-soft);padding:0 6px;border-radius:4px}
+section{display:flex;flex-direction:column;gap:12px}
+h2{font-size:21px;margin:0;font-weight:700}
+.fix{display:grid;gap:10px}
+.fix article{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;flex-direction:column;gap:4px}
+.fix .was{color:var(--text-3);text-decoration:line-through;text-decoration-color:var(--warn)}
+.fix .is{color:var(--text)}
+.fix .src{font-size:13px;color:var(--text-3)}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px}
+.band{background:var(--ink-band);color:var(--ink-band-text);border-radius:8px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.band h2{color:var(--ink-band-text)}
+.band p{margin:0}
+.refs{font-size:13px;color:var(--text-2);direction:ltr;text-align:left;padding-left:20px;margin:0;display:flex;flex-direction:column;gap:6px}
+.refs a{color:var(--accent);word-break:break-word}
+@media (max-width:480px){h1{font-size:24px}.say{font-size:19px}body.reading .say{font-size:22px}.take{padding:14px;gap:4px 10px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow"><span class="en">95 Sigma</span> · سكريبت ريل</div>
+  <h1>AMOS ولا SmartPLS؟ السؤال نفسه غلط</h1>
+  <div class="meta"><span>10 لقطات</span><span>حوالي <span class="num">90</span> ثانية</span><span>فيسبوك و YouTube Shorts</span></div>
+  <p class="lead">كل لقطة جملتين أو تلاتة تقولهم في take لوحده. الكلام مكتوب بالعامية عشان يتقال زي ما هو، وغيّر أي كلمة مش مريحاك. اللقطة 9 اختيارية لو عايز الريل أقصر.</p>
+</header>
+
+<div class="controls">
+  <button id="mode" type="button" aria-pressed="false">وضع التسجيل</button>
+  <span class="hint">بيخفي الملاحظات ويكبّر الكلام</span>
+</div>
+
+<ol class="takes">
+  <li class="take"><span class="no">1</span>
+    <div class="head"><h3>الهوك</h3><span class="time">0:00–0:05</span></div>
+    <div class="say"><p>نفس الـ 300 استبيان.</p><p>بطريقة AMOS الأثر طلع <span class="num">0.49</span>، وبطريقة SmartPLS طلع <span class="num">0.39</span>.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">نفس الداتا، رقمين مختلفين</span></div><div><b>لقطة مساعدة</b><span>الرقمين جنب بعض، وتحتهم «محاكاة، <span class="en">n = 300</span>»</span></div></div>
+  </li>
+  <li class="take"><span class="no">2</span>
+    <div class="head"><h3>السؤال الغلط</h3><span class="time">0:05–0:12</span></div>
+    <div class="say"><p>وده بيرد على أكتر سؤال بيجيلي: عايز أختبر فروضي من استبيان، أستخدم AMOS ولا SmartPLS؟ أنهي أسهل؟</p><p>والسؤال ده غلط من أوله.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">AMOS ولا SmartPLS؟</span></div></div>
+  </li>
+  <li class="take"><span class="no">3</span>
+    <div class="head"><h3>ورا كل برنامج طريقة</h3><span class="time">0:12–0:22</span></div>
+    <div class="say"><p>لأن ورا كل برنامج طريقة. AMOS بيشتغل <span class="en">CB-SEM</span>، و SmartPLS معروف بـ <span class="en">PLS-SEM</span>.</p><p>والطريقتين شايفين المتغير بتاعك بشكل مختلف. وعلى فكرة SmartPLS 4 فيه CB-SEM كمان، فالسؤال الحقيقي: أنهي طريقة؟</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">CB-SEM ولا PLS-SEM؟</span></div></div>
+  </li>
+  <li class="take"><span class="no">4</span>
+    <div class="head"><h3>Reflective</h3><span class="time">0:22–0:34</span></div>
+    <div class="say"><p>خد «رضا العميل». بتقيسه بأسئلة زي: أنا راضي، البنك قابل توقعاتي، أنا مبسوط إني عميل هنا.</p><p>التلاتة بيقولوا نفس الحاجة، والرضا هو اللي بيحرك الإجابات. ده <span class="en">Reflective</span>.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">Reflective: الأسئلة بتعكس المتغير</span></div><div><b>لقطة مساعدة</b><span>دايرة «الرضا» والأسهم طالعة منها للأسئلة</span></div></div>
+  </li>
+  <li class="take"><span class="no">5</span>
+    <div class="head"><h3>Formative</h3><span class="time">0:34–0:46</span></div>
+    <div class="say"><p>لكن «جودة الخدمة»: سرعة الرد، نضافة الفرع، وضوح الرسوم.</p><p>الفرع ممكن يبقى نضيف والرد بطيء. ولو شلت سؤال، المعنى بقى ناقص. ده <span class="en">Formative</span>، الأسئلة هي اللي بتكوّن المتغير.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">Formative: الأسئلة بتكوّن المتغير</span></div><div><b>لقطة مساعدة</b><span>نفس الرسمة بس الأسهم داخلة على «جودة الخدمة»</span></div></div>
+  </li>
+  <li class="take"><span class="no">6</span>
+    <div class="head"><h3>الاختبار السريع</h3><span class="time">0:46–0:54</span></div>
+    <div class="say"><p>اسأل نفسك: لو شلت سؤال، معنى المتغير اتغير؟</p><p>ولو إجابة سؤال زادت، لازم الباقي يزيد معاها؟</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">لو شلت سؤال، المعنى اتغير؟</span></div><div><b>تفتكر</b><span>لو المعنى اتغير = Formative. لو الأسئلة لازم تمشي مع بعض = Reflective.</span></div></div>
+  </li>
+  <li class="take"><span class="no">7</span>
+    <div class="head"><h3>هدف الدراسة</h3><span class="time">0:54–1:06</span></div>
+    <div class="say"><p>تاني حاجة: هدفك إيه؟ لو بتأكد نظرية معروفة، واللجنة هتسألك النموذج كله ماشي مع الداتا ولا لأ، يعني الـ <span class="en">fit</span>، فده CB-SEM.</p><p>لو عايز تعرف أنهي عوامل بتتنبأ بالمتغير التابع أحسن، فده PLS-SEM.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">تأكيد نظرية ولا تنبؤ؟</span></div></div>
+  </li>
+  <li class="take"><span class="no">8</span>
+    <div class="head"><h3>ليه الرقمين اختلفوا</h3><span class="time">1:06–1:16</span></div>
+    <div class="say"><p>وعشان كده الرقمين اختلفوا. على داتا Reflective زي الرضا، PLS-SEM صغّر الأثر من <span class="num">0.50</span> لـ <span class="num">0.38</span>.</p><p>وعلى داتا زي جودة الخدمة، العكس: CB-SEM هو اللي كبّره.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">كل طريقة صح على نوعها</span></div><div><b>الأرقام</b><span>محاكاة: n = 300، 1000 تكرار، الأثر الحقيقي 0.50. CB-SEM طلع 0.50 و PLS-SEM طلع 0.38 على داتا Reflective. وعلى داتا composite، CB-SEM طلع 0.59 و PLS-SEM طلع 0.50.</span></div></div>
+  </li>
+  <li class="take optional"><span class="no">9</span>
+    <div class="head"><h3>متختارش بالعينة</h3><span class="tag">اختيارية</span><span class="time">1:16–1:24</span></div>
+    <div class="say"><p>ومتختارش SmartPLS عشان العينة صغيرة أو الداتا مش طبيعية وبس. دي أسباب مساعدة، مش أساسية.</p><p>ولو الـ fit في AMOS طلع وحش، الهروب لـ SmartPLS مش حل.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">العينة الصغيرة مش سبب كفاية</span></div></div>
+  </li>
+  <li class="take"><span class="no">10</span>
+    <div class="head"><h3>القفلة</h3><span class="time">1:24–1:32</span></div>
+    <div class="say"><p>فاختار الطريقة من دراستك، مش من سهولة البرنامج.</p><p>ولو مش متأكد دراستك تمشي بأنهي طريقة، ابعتلنا ونعملك تقييم أولي مجاني.</p></div>
+    <div class="notes"><div><b>على الشاشة</b><span class="screen">اختار من دراستك، مش البرنامج</span></div><div><b>آخر فريم</b><span>95sigma.tech</span></div></div>
+  </li>
+</ol>
+
+<section>
+  <h2>اتصلح من كلام Gemini</h2>
+  <p class="lead">معظم النقاش كان كويس (الهدف، والفرق بين Reflective و Formative، واختبار الحذف). دي النقط اللي مش دقيقة، فمتقولهاش في الريل ولا في الردود.</p>
+  <div class="fix">
+    <article>
+      <div class="was">«PLS بيكبّر المسارات ويصغّر الـ loadings»</div>
+      <div class="is">العكس. على داتا Reflective، PLS-SEM بيكبّر الـ loadings ويصغّر المسارات. في المحاكاة: الـ loadings طلعت <span class="num">0.81</span> بدل <span class="num">0.70</span>، والمسار <span class="num">0.38</span> بدل <span class="num">0.50</span>.</div>
+      <div class="src">Sarstedt et al. (2016)؛ Dijkstra &amp; Henseler (2015)</div>
+    </article>
+    <article>
+      <div class="was">«عينة صغيرة أو داتا مش طبيعية = SmartPLS بشكل قاطع»</div>
+      <div class="is">دي أسباب داعمة، مش كافية لوحدها. و PLS-SEM نفسه محتاج عينة كفاية: لو أصغر مسار متوقع 0.20، طريقة inverse square root بتطلب حوالي <span class="num">155</span>. يعني 45 مدير مش هتتصلح بتغيير البرنامج. والداتا اللي مش طبيعية في AMOS ليها حل زي Bollen-Stine bootstrap.</div>
+      <div class="src">SmartPLS: When to use PLS-SEM؛ Goodhue et al. (2012)؛ Kock &amp; Hadaya (2018)؛ Bollen &amp; Stine (1992)</div>
+    </article>
+    <article>
+      <div class="was">«لو فيه متغير Formative، SmartPLS هو الخيار الوحيد»</div>
+      <div class="is">هو الأريح، مش الوحيد. CB-SEM يقدر يتعامل مع Formative بنموذج MIMIC (المتغير ياخد أسئلة Formative وكمان أسهم طالعة لمؤشرات Reflective). و SmartPLS 4 فيه CB-SEM من 2023.</div>
+      <div class="src">Diamantopoulos &amp; Winklhofer (2001)؛ SmartPLS release notes</div>
+    </article>
+    <article>
+      <div class="was">«SRMR و NFI بيثبتوا الـ fit في SmartPLS قدام اللجنة»</div>
+      <div class="is">Henseler et al. (2016) اقترحوا SRMR (أقل من <span class="num">0.08</span>) واختبارات d_ULS و d_G بالـ bootstrap، و NFI مش من المقترح. و Hair et al. (2019) بيقولوا إن الـ fit في PLS-SEM لسه في بدايته ويتاخد بحذر. لو الـ fit هو قلب الدراسة، CB-SEM (ولو محتاج MIMIC) أنسب.</div>
+      <div class="src">Henseler, Hubona &amp; Ray (2016)؛ Hair et al. (2019)</div>
+    </article>
+    <article>
+      <div class="was">آخر جزء: «PLS بيضغط المتغيرات لمكونات» ومثال تعثر القروض</div>
+      <div class="is">Gemini هنا اتكلم عن PLS regression، ودي أداة تنبؤ تانية غير PLS-SEM. ومثال القروض (دخل وسن وسجل ائتماني ومخرج نعم/لأ) مش SEM أصلًا، ده Logistic regression أو machine learning. التنبؤ في PLS-SEM معناه إنك تتنبأ بإجابات ناس برة العينة، وبيتقاس بـ PLSpredict. وجملة «دقة 80%» في مثال الإنتاجية متألفة.</div>
+      <div class="src">Shmueli et al. (2019)</div>
+    </article>
+    <article>
+      <div class="was">«AMOS لازم عينة أكبر من 200 أو 300»</div>
+      <div class="is">200 قاعدة تقريبية مش شرط. العينة اللازمة بتعتمد على حجم الأثر وعدد المتغيرات والتشبعات، وبتتحسب بـ power analysis أو Monte Carlo، زي ما قلنا في ريل حجم العينة.</div>
+      <div class="src">Kline (2016)</div>
+    </article>
+  </div>
+</section>
+
+<section>
+  <h2>متقولش</h2>
+  <ul class="plain">
+    <li>«PLS-SEM غلط» أو «CB-SEM أحسن دايمًا». فيه خلاف حقيقي في الأدبيات، وكل طريقة صح في حالتها.</li>
+    <li>«AMOS قال 0.49» كأنها نتيجة بحث حقيقي. دي محاكاة بنفس طريقة الحساب، قول «بطريقة AMOS».</li>
+    <li>«SmartPLS مفيهوش CB-SEM». فيه من نسخة 4.0.9.3 (مايو 2023).</li>
+    <li>«Reflective يبقى لازم AMOS». ممكن تقدّره في SmartPLS بـ PLSc وتطلع أرقام قريبة من CB-SEM.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>3 كومنتات متوقعة</h2>
+  <ul class="plain">
+    <li><b>«أنا عملت رسالتي بـ SmartPLS، كده غلط؟»</b> مش لازم. لو مقاييسك Reflective، شوف PLSc في SmartPLS، واكتب في الرسالة ليه اخترت الطريقة.</li>
+    <li><b>«المشرف قالي SmartPLS عشان العينة صغيرة»</b> العينة سبب مساعد بس. الأهم هدف الدراسة وطبيعة المتغيرات، و PLS برضه محتاج عينة كفاية.</li>
+    <li><b>«ينفع أعمل الاتنين؟»</b> ينفع كـ robustness check. لو النتايج قريبة، بحثك أقوى. لو بعيدة، الفرق نفسه بيقولك حاجة عن متغيراتك.</li>
+  </ul>
+</section>
+
+<div class="band">
+  <h2>الكابشن والعنوان</h2>
+  <p>كل يوم حد يسألني: أختبر فروضي بـ AMOS ولا SmartPLS؟ والإجابة إن ده مش سؤال سهولة. ورا كل برنامج طريقة بتفترض حاجة مختلفة عن متغيراتك، ولو الطريقة مش مناسبة الرقم بيطلع متحيز. اختار من دراستك: متغيراتك Reflective ولا Formative، وهدفك تأكيد نظرية ولا تنبؤ. ولو مش متأكد، ابعتلنا ونعملك تقييم أولي مجاني.</p>
+  <p><b>عنوان YouTube Shorts:</b> AMOS ولا SmartPLS؟ CB-SEM و PLS-SEM مش بدايل</p>
+</div>
+
+<section>
+  <h2>المصادر</h2>
+  <ol class="refs">
+    <li>Sarstedt, Hair, Ringle, Thiele &amp; Gudergan (2016). Estimation issues with PLS and CBSEM: Where the bias lies! Journal of Business Research, 69(10). <a href="https://doi.org/10.1016/j.jbusres.2016.06.007">doi</a></li>
+    <li>Dijkstra &amp; Henseler (2015). Consistent partial least squares path modeling. MIS Quarterly, 39(2). <a href="https://doi.org/10.25300/MISQ/2015/39.2.02">doi</a></li>
+    <li>Hair, Risher, Sarstedt &amp; Ringle (2019). When to use and how to report the results of PLS-SEM. European Business Review, 31(1). <a href="https://doi.org/10.1108/EBR-11-2018-0203">doi</a></li>
+    <li>Henseler, Hubona &amp; Ray (2016). Using PLS path modeling in new technology research: Updated guidelines. IMDS, 116(1). <a href="https://doi.org/10.1108/IMDS-09-2015-0382">doi</a></li>
+    <li>Diamantopoulos &amp; Winklhofer (2001). Index construction with formative indicators. Journal of Marketing Research, 38(2). <a href="https://doi.org/10.1509/jmkr.38.2.269.18845">doi</a></li>
+    <li>Goodhue, Lewis &amp; Thompson (2012). Does PLS have advantages for small sample size or non-normal data? MIS Quarterly, 36(3).</li>
+    <li>Kock &amp; Hadaya (2018). Minimum sample size estimation in PLS-SEM. Information Systems Journal, 28(1). <a href="https://doi.org/10.1111/isj.12131">doi</a></li>
+    <li>Bollen &amp; Stine (1992). Bootstrapping goodness-of-fit measures in structural equation models. Sociological Methods &amp; Research, 21(2).</li>
+    <li>Shmueli et al. (2019). Predictive model assessment in PLS-SEM: Guidelines for using PLSpredict. European Journal of Marketing, 53(11). <a href="https://doi.org/10.1108/EJM-02-2019-0189">doi</a></li>
+    <li>Kline (2016). Principles and practice of structural equation modeling (4th ed.). Guilford.</li>
+    <li>SmartPLS. When to use PLS-SEM (and when not). <a href="https://www.smartpls.com/documentation/choosing-pls-sem/more-insights-on-when-to-use-pls-sem-and-when-not">smartpls.com</a> · What's new in SmartPLS 4. <a href="https://smartpls.com/faq/smartpls4/whatsnew">smartpls.com</a></li>
+  </ol>
+</section>
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('mode');
+  function set(on){document.body.classList.toggle('reading',on);btn.setAttribute('aria-pressed',on?'true':'false');try{localStorage.setItem('reading',on?'1':'0')}catch(e){}}
+  var saved=false;try{saved=localStorage.getItem('reading')==='1'}catch(e){}
+  set(saved);
+  btn.addEventListener('click',function(){set(!document.body.classList.contains('reading'))});
+})();
+</script>
