@@ -1,7 +1,0 @@
-n=1000, seed=42, true total effect = 0.30
-
-no controls                            b= 0.43  95% CI [ 0.37,  0.50]  p=5.95e-36  R2=0.15
-+ experience (confounder, good)        b= 0.27  95% CI [ 0.20,  0.34]  p=4.56e-14  R2=0.24
-+ experience + skill (mediator, bad)   b=-0.04  95% CI [-0.11,  0.03]  p=0.237  R2=0.42
-+ experience + promotion (collider, bad) b=-0.13  95% CI [-0.20, -0.06]  p=0.000123  R2=0.49
-+ experience + skill + promotion       b=-0.28  95% CI [-0.34, -0.21]  p=7.63e-17  R2=0.57
