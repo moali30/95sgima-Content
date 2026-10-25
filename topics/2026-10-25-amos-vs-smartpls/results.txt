@@ -1,0 +1,17 @@
+
+== Scenario A: common factor data (reflective, loadings 0.70) (n = 300, 1000 reps, true path = 0.5) ==
+CB-SEM (ML)  path mean = 0.500  95% of reps in [0.370, 0.624]  bias = -0.000
+PLS-SEM      path mean = 0.378  95% of reps in [0.280, 0.468]  bias = -0.122
+PLSc         path mean = 0.503  95% of reps in [0.376, 0.626]  bias = +0.003
+mean loading: CB-SEM = 0.699, PLS-SEM = 0.811
+CB-SEM chi2 (df = 8) mean = 8.1; rejected at .05 in 6.0% of reps
+
+== Scenario B: composite data (weighted sum of indicators) (n = 300, 1000 reps, true path = 0.5) ==
+CB-SEM (ML)  path mean = 0.585  95% of reps in [0.400, 0.769]  bias = +0.085
+PLS-SEM      path mean = 0.496  95% of reps in [0.412, 0.574]  bias = -0.004
+PLSc         path mean = 0.767  95% of reps in [0.645, 0.886]  bias = +0.267
+mean loading: CB-SEM = 0.629, PLS-SEM = 0.756
+CB-SEM chi2 (df = 8) mean = 44.5; rejected at .05 in 99.9% of reps
+
+== One dataset (Scenario A, n = 300, seed 95) ==
+CB-SEM path = 0.49, PLS-SEM path = 0.39, PLSc path = 0.50
