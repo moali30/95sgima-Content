@@ -1,14 +1,18 @@
 [
   {
-    "name": "post-crossed",
+    "name": "post-crossed-a",
     "format": "post",
     "variant": "light",
     "label": "المتغيرات الضابطة",
-    "title": "اوع تحط السن والنوع *كمتغيرات ضابطة*",
-    "subtitle": "إلا لو عندك سبب إنهم بيأثروا على X و Y مع بعض.",
-    "visual": {
-      "type": "crossed",
-      "items": ["السن", "النوع"]
-    }
+    "title": "السن والنوع ممكن *يبوّظوا* بحثك",
+    "visual": { "type": "crossed", "items": ["السن", "النوع"] }
+  },
+  {
+    "name": "post-crossed-b",
+    "format": "post",
+    "variant": "light",
+    "label": "المتغيرات الضابطة",
+    "title": "إنت حاطط السن والنوع *ليه*؟",
+    "visual": { "type": "crossed", "items": ["السن", "النوع"] }
   }
 ]
