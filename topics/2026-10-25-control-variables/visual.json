@@ -1,24 +1,10 @@
 [
   {
-    "name": "post-crossed-a",
+    "name": "post",
     "format": "post",
     "variant": "dark",
     "label": "المتغيرات الضابطة · Control Variables",
     "title": "السن والنوع ممكن *يبوّظوا* بحثك",
-    "visual": {
-      "type": "crossed",
-      "items": [
-        "السن",
-        "النوع"
-      ]
-    }
-  },
-  {
-    "name": "post-crossed-b",
-    "format": "post",
-    "variant": "dark",
-    "label": "المتغيرات الضابطة · Control Variables",
-    "title": "إنت حاطط السن والنوع *ليه*؟",
     "visual": {
       "type": "crossed",
       "items": [
